@@ -1,0 +1,24 @@
+cat > .gitignore << 'EOF'
+# Secrets
+*.key
+*.pem
+*.crt
+*.env
+.env.*
+secrets/
+
+# Docker
+docker-compose.override.yml
+
+# Volumes
+**/data/
+**/storage/
+
+# IDE
+.idea/
+.vscode/
+
+# SSL certificates (keep paths but exclude actual files)
+nginx/ssl/*.key
+nginx/ssl/*.crt
+EOF
