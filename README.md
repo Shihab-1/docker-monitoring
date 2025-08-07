@@ -120,6 +120,42 @@ text
 
 To implement:
 1. Save this as `README.md` in your project root
+
+```mermaid
+%% Docker Monitoring Stack Architecture
+flowchart TD
+    subgraph User[" "]
+        U[User/Browser]
+    end
+
+    subgraph VPS["VPS (Docker Host)"]
+        subgraph Nginx["Nginx (SSL Proxy)"]
+            N[Port 443]
+        end
+
+        subgraph Monitoring["Monitoring Stack"]
+            G[Grafana\nPort 3000]
+            P[Prometheus\nPort 9090]
+            I[InfluxDB\nPort 8086]
+            NE[Node Exporter\nPort 9100]
+        end
+    end
+
+    U -->|HTTPS| N
+    N -->|Proxy| G
+    G -->|Query| P
+    G -->|Store| I
+    P -->|Scrape| NE
+    P -->|Store| I
+
+    style U fill:#fff,stroke:#333,stroke-width:2px
+    style N fill:#269539,stroke:#fff,color:#fff
+    style G fill:#fc6,stroke:#333
+    style P fill:#e6522c,stroke:#fff,color:#fff
+    style I fill:#22adf6,stroke:#fff,color:#fff
+    style NE fill:#909090,stroke:#fff,color:#fff
+```
+
 2. Customize the `DOMAIN` and other variables
 3. Add your actual license file if needed
 4. Commit and push:
